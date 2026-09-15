@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>个人数据生活仪表盘</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <header class="header">
+      <h1>个人数据生活仪表盘</h1>
+      <button id="theme-toggle" class="btn">切换暗色模式</button>
+    </header>
+    
+    <div class="grid-container">
+      <div class="card">
+        <h3>每日步数趋势</h3>
+        <div id="chart-steps" class="chart-container"></div>
+      </div>
+      <div class="card">
+        <h3>今日时间分配</h3>
+        <div id="chart-sleep" class="chart-container"></div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
