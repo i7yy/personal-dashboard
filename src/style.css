@@ -1,26 +1,120 @@
 :root {
-  --bg-color: #f4f7f6;
+  --bg-gradient: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 99%, #FECFEF 100%);
   --text-color: #333;
-  --card-bg: #ffffff;
-  --shadow: 0 4px 12px rgba(0,0,0,0.05);
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+  --border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* 暗色主题变量 */
 body.dark-mode {
-  --bg-color: #1a1a2e;
+  --bg-gradient: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
   --text-color: #e6e6e6;
-  --card-bg: #16213e;
-  --shadow: 0 4px 12px rgba(0,0,0,0.4);
+  --card-bg: rgba(22, 33, 62, 0.8);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: var(--bg-color);
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  background-size: cover;
   color: var(--text-color);
-  transition: all 0.3s ease;
+  transition: background 0.5s ease, color 0.3s ease;
+  min-height: 100vh;
 }
 
+/* ================= 加载界面：烟花与横幅 ================= */
+.loader-container {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow: hidden;
+  transition: opacity 1s ease, visibility 1s ease;
+  cursor: pointer; /* 提示用户这里可以点击 */
+}
+
+.fireworks {
+  position: absolute;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.spark {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.8), 0 0 40px 20px rgba(255, 200, 0, 0.6);
+  animation: firework 2s infinite ease-out;
+}
+
+.spark:nth-child(1) { animation-delay: 0s; left: 40%; top: 40%; }
+.spark:nth-child(2) { animation-delay: 0.4s; left: 60%; top: 30%; }
+.spark:nth-child(3) { animation-delay: 0.8s; left: 30%; top: 60%; }
+.spark:nth-child(4) { animation-delay: 1.2s; left: 70%; top: 65%; }
+.spark:nth-child(5) { animation-delay: 1.6s; left: 50%; top: 50%; }
+
+@keyframes firework {
+  0% { transform: scale(0); opacity: 1; }
+  50% { transform: scale(10); opacity: 0.8; }
+  100% { transform: scale(20); opacity: 0; }
+}
+
+.banner {
+  background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+  padding: 20px 60px;
+  border-radius: 20px;
+  border: 2px solid rgba(255, 215, 0, 0.8);
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+  animation: bannerIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform: scale(0.5) translateY(50px);
+  opacity: 0;
+  backdrop-filter: blur(10px);
+  z-index: 2;
+  text-align: center;
+}
+
+.banner h1 {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.3), 0 0 20px rgba(255, 215, 0, 0.5);
+  letter-spacing: 4px;
+}
+
+/* 跳过提示样式 */
+.skip-hint {
+  margin-top: 15px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  animation: hintPulse 2s infinite;
+  letter-spacing: 2px;
+}
+
+@keyframes hintPulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+@keyframes bannerIn {
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ================= 基础布局 ================= */
 .dashboard {
   max-width: 1200px;
   margin: 0 auto;
@@ -34,7 +128,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* 实时数据标签样式 */
 .realtime-info {
   display: flex;
   gap: 20px;
@@ -43,15 +136,14 @@ body {
   color: #666;
 }
 
-body.dark-mode .realtime-info {
-  color: #aaa;
-}
+body.dark-mode .realtime-info { color: #aaa; }
 
 .realtime-info span {
-  background: rgba(74, 144, 226, 0.1);
+  background: rgba(74, 144, 226, 0.15);
   padding: 4px 12px;
   border-radius: 20px;
   transition: all 0.3s;
+  backdrop-filter: blur(4px);
 }
 
 .btn {
@@ -61,6 +153,13 @@ body.dark-mode .realtime-info {
   color: white;
   border: none;
   border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(74, 144, 226, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(74, 144, 226, 0.4);
 }
 
 .grid-container {
@@ -71,14 +170,134 @@ body.dark-mode .realtime-info {
 
 .card {
   background-color: var(--card-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: var(--shadow);
-  transition: background-color 0.3s ease;
+  border: var(--border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-mode .card:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
 }
 
 .chart-container {
   width: 100%;
   height: 300px;
   margin-top: 10px;
+}
+
+.card-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.card-header-flex h3 {
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  margin: 0;
+}
+
+.sign-select {
+  background: rgba(255, 255, 255, 0.2);
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 4px 8px;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  backdrop-filter: blur(4px);
+}
+
+body.dark-mode .sign-select {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.sign-select option {
+  background: #fff;
+  color: #333;
+}
+
+body.dark-mode .sign-select option {
+  background: #16213e;
+  color: #e6e6e6;
+}
+
+.card-horoscope {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.85) 100%);
+  color: #fff;
+  border: none;
+}
+
+.horoscope-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.horoscope-title { font-size: 16px; font-weight: bold; }
+.horoscope-score { font-size: 20px; font-weight: bold; color: #ffd700; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.horoscope-tags { opacity: 0.9; }
+.horoscope-lucky { opacity: 0.85; }
+.horoscope-summary {
+  background: rgba(255,255,255,0.15);
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+.card-almanac {
+  background: linear-gradient(135deg, rgba(240, 147, 251, 0.85) 0%, rgba(245, 87, 108, 0.85) 100%);
+  color: #fff;
+  border: none;
+}
+
+.almanac-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.almanac-date { font-size: 15px; font-weight: bold; }
+.almanac-yi {
+  background: rgba(255,255,255,0.15);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.almanac-ji {
+  background: rgba(0,0,0,0.15);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.almanac-wuxing { opacity: 0.85; font-size: 13px; }
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding-bottom: 10px;
+}
+
+body.dark-mode .card h3 {
+  border-bottom-color: rgba(255,255,255,0.05);
 }
