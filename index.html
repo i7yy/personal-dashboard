@@ -9,7 +9,15 @@
 <body>
   <div class="dashboard">
     <header class="header">
-      <h1>个人数据生活仪表盘</h1>
+      <div>
+        <h1>个人数据生活仪表盘</h1>
+        <!-- 实时数据展示区 -->
+        <div id="realtime-info" class="realtime-info">
+          <span id="weather-box">🌤️ 正在获取天气...</span>
+          <span id="steps-box">👟 正在获取步数...</span>
+          <span id="exercise-box">🏃 运动时间: -- 分钟</span>
+        </div>
+      </div>
       <button id="theme-toggle" class="btn">切换暗色模式</button>
     </header>
     
