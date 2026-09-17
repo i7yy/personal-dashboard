@@ -14,11 +14,11 @@
 
 | 白天模式 (随机撞色) | 夜间模式 |
 | :---: | :---: |
-| ![白天截图] <img width="1855" height="1066" alt="image" src="https://github.com/user-attachments/assets/b8552321-718c-46f1-9be7-9b294c2227bc" />
-| ![夜间截图]<img width="1492" height="987" alt="image" src="https://github.com/user-attachments/assets/e2b416f0-8d74-41c1-9537-8af58e9a2d01" />
+|  <img width="1855" height="1066" alt="image" src="https://github.com/user-attachments/assets/b8552321-718c-46f1-9be7-9b294c2227bc" />
+| <img width="1492" height="987" alt="image" src="https://github.com/user-attachments/assets/e2b416f0-8d74-41c1-9537-8af58e9a2d01" />
 ) |
 
-## 📝 开发日志 (迭代记录) —— **重点给 HR 看这里！**
+## 📝 开发日志 (迭代记录) —— 
 - **V1.0** 初始化仪表盘，完成基础折线图与饼图
 - **V2.0** 引入随机游走算法，实现步数实时动态刷新与本地存储
 - **V3.0** 接入天气、星座运势、黄历 API，丰富数据维度
