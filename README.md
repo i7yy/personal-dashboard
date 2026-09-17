@@ -10,9 +10,9 @@
 - **视觉与性能优化**：随机撞色背景、毛玻璃卡片 UI、暗色模式切换，并通过优化渲染频率减轻浏览器负担。
 
 ## 📸 界面截图
-> *(把你自己截好的网页图片拖拽到这里，GitHub 会自动生成图片链接)*
 
-| 白天模式 (随机撞色) | 夜间模式 (深色赛博) |
+
+| 白天模式 (随机撞色) | 夜间模式 |
 | :---: | :---: |
 | ![白天截图] <img width="1855" height="1066" alt="image" src="https://github.com/user-attachments/assets/b8552321-718c-46f1-9be7-9b294c2227bc" />
 | ![夜间截图]<img width="1492" height="987" alt="image" src="https://github.com/user-attachments/assets/e2b416f0-8d74-41c1-9537-8af58e9a2d01" />
